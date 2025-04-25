@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F56814732DA82F8A000A9707 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = F56814722DA82F8A000A9707 /* SVGKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F568142A2DA43A1E000A9707 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F56814732DA82F8A000A9707 /* SVGKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				F568141D2DA43A1D000A9707 /* MTGChaser */,
 				F568142C2DA43A1E000A9707 /* MTGChaserTests */,
 				F56814362DA43A1E000A9707 /* MTGChaserUITests */,
+				F56814712DA82F8A000A9707 /* Frameworks */,
 				F568141C2DA43A1D000A9707 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				F56814332DA43A1E000A9707 /* MTGChaserUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F56814712DA82F8A000A9707 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = MTGChaser;
 			packageProductDependencies = (
+				F56814722DA82F8A000A9707 /* SVGKit */,
 			);
 			productName = MTGChaser;
 			productReference = F568141B2DA43A1D000A9707 /* MTGChaser.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = F56814122DA43A1D000A9707;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F568141C2DA43A1D000A9707 /* Products */;
 			projectDirPath = "";
@@ -418,7 +435,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
@@ -457,7 +474,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
@@ -593,6 +610,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F56814722DA82F8A000A9707 /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F56814132DA43A1D000A9707 /* Project object */;
 }
