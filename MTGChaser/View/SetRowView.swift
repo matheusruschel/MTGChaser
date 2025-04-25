@@ -10,12 +10,13 @@ import SwiftUI
 struct SetRowView: View {
     
     var cardSet: CardSet
+    var scryfallFetcher = APIData()
+    
     @State
     var isExpanded: Bool = false
     
     @State
-    var cards: [Card] = []
-    var scryfallFetcher = ScryfallData()
+    var cardsData: APIDataReturn<Card>?
     
     var body: some View {
         VStack {
@@ -32,14 +33,22 @@ struct SetRowView: View {
             .padding().frame(height: 50)
             .background(Color(.lightGray))
             
-            if isExpanded {
-                CardListView(cards: cards)
+            if let cardsData = cardsData, isExpanded {
+                CardListView(cardsData: cardsData)
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .onAppear {
-            Task { cards = await scryfallFetcher.fetchCards(searchUri: cardSet.search_uri) ?? [] }
+            Task {
+                cardsData = await scryfallFetcher.fetchCards(searchUri: cardSet.search_uri.replaceSortOrderWithRariry(), sortOrder: .rarity)
+            }
         }
     }
     
+}
+
+extension String {
+    func replaceSortOrderWithRariry() -> String {
+        return self.replacingOccurrences(of: "order=set", with: "order=rarity")
+    }
 }

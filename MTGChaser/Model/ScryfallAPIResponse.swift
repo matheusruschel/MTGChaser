@@ -8,8 +8,10 @@
 
 import Foundation
 
-struct ScryfallAPIResponse<T: Decodable>: Decodable {
-    var has_more: Bool
+struct ScryfallAPIResponse<T: Decodable & Sendable>: Decodable {
+    var has_more: Bool?
     var object: String
-    var data: [T]
+    var total_cards: Int?
+    var next_page: String?
+    var data: [T]?
 }

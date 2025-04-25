@@ -11,17 +11,17 @@ struct SpoilerView: View {
     
     let columns = [GridItem(.flexible())]
     
-    private var cardSetData = ScryfallData()
+    private var cardSetData = APIData()
     
     @State
-    var cardSetList: [CardSet] = []
+    var cardSetReturnData: APIDataReturn<CardSet>?
     
     var body: some View {
         VStack {
             
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    ForEach(cardSetList) { set in
+                    ForEach(cardSetReturnData?.data ?? []) { set in
                         VStack {
                             SetRowView(cardSet: set)
                         }
@@ -30,7 +30,7 @@ struct SpoilerView: View {
             }
         }
         .onAppear {
-            Task { cardSetList = await cardSetData.fetchCardSetList() ?? [] }
+            Task { cardSetReturnData = await cardSetData.fetchCardSetList() }
         }
     }
 }

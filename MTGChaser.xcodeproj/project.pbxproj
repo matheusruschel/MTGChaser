@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F54EEBB02DBC109B00C3A5D3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F54EEBAF2DBC109B00C3A5D3 /* SDWebImageSwiftUI */; };
 		F56814732DA82F8A000A9707 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = F56814722DA82F8A000A9707 /* SVGKit */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54EEBB02DBC109B00C3A5D3 /* SDWebImageSwiftUI in Frameworks */,
 				F56814732DA82F8A000A9707 /* SVGKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +128,7 @@
 			name = MTGChaser;
 			packageProductDependencies = (
 				F56814722DA82F8A000A9707 /* SVGKit */,
+				F54EEBAF2DBC109B00C3A5D3 /* SDWebImageSwiftUI */,
 			);
 			productName = MTGChaser;
 			productReference = F568141B2DA43A1D000A9707 /* MTGChaser.app */;
@@ -211,6 +214,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */,
+				F54EEBAE2DBC105100C3A5D3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F568141C2DA43A1D000A9707 /* Products */;
@@ -612,6 +616,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F54EEBAE2DBC105100C3A5D3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 		F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SVGKit/SVGKit";
@@ -623,6 +635,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F54EEBAF2DBC109B00C3A5D3 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F54EEBAE2DBC105100C3A5D3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		F56814722DA82F8A000A9707 /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F56814702DA82D70000A9707 /* XCRemoteSwiftPackageReference "SVGKit" */;

@@ -23,15 +23,15 @@ actor ScryfallFetcher {
         self.connector = connector
     }
     
-    func fetchCards(searchUri: String) async throws -> [Card] {
+    func fetchCards(searchUri: String) async throws -> ScryfallAPIResponse<Card>? {
         return try await get(url: searchUri)
     }
     
-    func fetchSets() async throws -> [CardSet] {
+    func fetchSets() async throws -> ScryfallAPIResponse<CardSet>? {
         return try await get(url: setsURLString)
     }
     
-    private func get<T:Decodable>(url: String) async throws -> [T] {
+    private func get<T:Decodable>(url: String) async throws -> ScryfallAPIResponse<T>? {
         
         guard let setUrl = URL(string: url) else {
             throw Errors.invalidUrl
@@ -41,6 +41,6 @@ actor ScryfallFetcher {
         
         let object = try JSONDecoder().decode(ScryfallAPIResponse<T>.self, from: returnObject)
         
-        return object.data
+        return object
     }
 }
