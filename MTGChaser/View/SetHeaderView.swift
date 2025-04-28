@@ -7,17 +7,13 @@
 
 import SwiftUI
 
-struct SetRowView: View {
+struct SetHeaderView: View {
     
     var cardSet: CardSet
-    var scryfallFetcher = APIData()
     
-    @State
-    var isExpanded: Bool = false
-    
-    @State
-    var cardsData: APIDataReturn<Card>?
-    
+    var isExpanded: Bool
+    var toggleExpanded: (String) -> Void
+
     var body: some View {
         VStack {
             HStack {
@@ -28,19 +24,12 @@ struct SetRowView: View {
                     .font(.headline)
                     .padding(5)
                 Spacer()
-                ChevronButton(isExpanded: $isExpanded)
+                ChevronIconView(isExpanded: isExpanded)
             }
             .padding().frame(height: 50)
             .background(Color(.lightGray))
-            
-            if let cardsData = cardsData, isExpanded {
-                CardListView(cardsData: cardsData)
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-        .onAppear {
-            Task {
-                cardsData = await scryfallFetcher.fetchCards(searchUri: cardSet.search_uri.replaceSortOrderWithRariry(), sortOrder: .rarity)
+            .onTapGesture {
+                toggleExpanded(cardSet.id)
             }
         }
     }

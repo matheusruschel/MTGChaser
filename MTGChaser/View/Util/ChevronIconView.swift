@@ -7,18 +7,12 @@
 
 import SwiftUI
 
-struct ChevronButton: View {
+struct ChevronIconView: View {
     
-    @Binding var isExpanded: Bool
+    var isExpanded: Bool
 
     var body: some View {
-        Button(action: {
-            withAnimation(.easeInOut) {
-                isExpanded.toggle()
-            }
-        }) {
-            image()
-        }
+        image()
     }
     
     func image() -> Image {

@@ -8,16 +8,16 @@ import SwiftUI
 
 struct TabBarView: View {
     var body: some View {
-            TabView {
-                SpoilerView()
-                    .tabItem {
-                        Label("Spoilers", systemImage: "list.dash")
-                    }
-
-                ChaseView()
-                    .tabItem {
-                        Label("Chase", systemImage: "square.and.pencil")
-                    }
-            }
+        TabView {
+            SpoilerView()
+                .tabItem {
+                    Label("Spoilers", systemImage: "list.dash")
+                }
+            
+            ChaseView()
+                .tabItem {
+                    Label("Chase", systemImage: "square.and.pencil")
+                }
         }
+    }
 }
