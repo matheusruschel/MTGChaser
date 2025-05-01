@@ -15,6 +15,7 @@ struct CardSet: Decodable, Hashable, Identifiable {
     var name: String
     var icon_svg_uri: String
     var search_uri: String
+    var card_count: Int
     
     static func ==(lhs: CardSet, rhs: CardSet) -> Bool {
         return lhs.id == rhs.id

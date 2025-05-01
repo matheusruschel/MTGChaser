@@ -14,6 +14,45 @@ struct Card: Decodable, Identifiable {
     var image_uris: ImageUri?
     var prices: Prices?
     var rarity: Rarity
+    var layout: CardLayout
+    var card_faces: [CardFace]?
+}
+
+struct CardFace: Decodable {
+    var image_uris: ImageUri?
+}
+
+enum CardLayout: Decodable, Hashable, Equatable {
+    case normal
+    case reversible_card
+    case notSupported
+    case prototype
+    case transform
+    case adventure
+    case saga
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+
+        switch rawValue {
+        case "normal":
+            self = .normal
+        case "reversible_card":
+            self = .reversible_card
+        case "prototype":
+            self = .prototype
+        case "transform":
+            self = .transform
+        case "adventure":
+            self = .adventure
+        case "saga":
+            self = .saga
+        default:
+            self = .notSupported
+        }
+    }
+    
 }
 
 struct ImageUri: Decodable {

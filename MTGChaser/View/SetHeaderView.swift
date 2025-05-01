@@ -35,9 +35,3 @@ struct SetHeaderView: View {
     }
     
 }
-
-extension String {
-    func replaceSortOrderWithRariry() -> String {
-        return self.replacingOccurrences(of: "order=set", with: "order=rarity")
-    }
-}

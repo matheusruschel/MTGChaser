@@ -22,7 +22,7 @@ actor APIData {
     
     let scryfallFetcher = ScryfallFetcher()
     
-    func fetchCardSetList(setType: SetType = .expansion) async -> APIDataReturn<CardSet>? {
+    func fetchCardSetList() async -> APIDataReturn<CardSet>? {
         do {
             let scryfallAPIResponse = try await scryfallFetcher.fetchSets()
             
@@ -30,25 +30,19 @@ actor APIData {
                 return nil
             }
             
-            return APIDataReturn(data: cardSetListData.filter({ $0.set_type == setType }), nextPage: scryfallAPIResponse?.next_page)
+            return APIDataReturn(data: cardSetListData, nextPage: scryfallAPIResponse?.next_page)
         } catch {
             print("Error fetching card set list: \(error)")
             return nil
         }
     }
     
-    func fetchCards(searchUri: String, sortOrder: SortOrder? = nil) async -> APIDataReturn<Card>? {
+    func fetchCards(searchUri: String) async -> APIDataReturn<Card>? {
         do {
             let scryfallAPIResponse = try await scryfallFetcher.fetchCards(searchUri: searchUri)
             
-            guard var cardsData = scryfallAPIResponse?.data else {
+            guard let cardsData = scryfallAPIResponse?.data else {
                 return nil
-            }
-            
-            if let sortOrder = sortOrder {
-                cardsData.sort { (card1, card2) -> Bool in
-                    card1.rarity > card2.rarity
-                }
             }
             
             return APIDataReturn(data: cardsData, nextPage: scryfallAPIResponse?.next_page)
