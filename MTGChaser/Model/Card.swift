@@ -16,10 +16,30 @@ struct Card: Decodable, Identifiable {
     var rarity: Rarity
     var layout: CardLayout
     var card_faces: [CardFace]?
+    var finishes: [Finishes]
 }
 
 struct CardFace: Decodable {
     var image_uris: ImageUri?
+}
+
+enum Finishes: Decodable, Hashable, Equatable {
+    case nonfoil
+    case foil
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+
+        switch rawValue {
+        case "nonfoil":
+            self = .nonfoil
+        case "foil":
+            self = .foil
+        default :
+            self = .foil
+        }
+    }
 }
 
 enum CardLayout: Decodable, Hashable, Equatable {

@@ -71,7 +71,7 @@ struct CardView: View {
                                     Image("icons8-flip_small")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .padding(10) // padding to center the image inside the circle
+                                        .padding(geometry.size.width * 0.02) // padding to center the image inside the circle
                                 }
                                 .frame(width: geometry.size.width * 0.18, height: geometry.size.width * 0.18)
                                 .background(Color.white.opacity(0.6))
@@ -83,11 +83,9 @@ struct CardView: View {
                 }
                 
             } else {
-                Text("Not supported card")
+                Text("Card \(card.name) with layout \(card.layout) not supported")
             }
         }
         .cornerRadius(8)
-        .shadow(radius: 2)
-        
     }
 }

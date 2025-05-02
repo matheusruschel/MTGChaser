@@ -11,20 +11,21 @@ import Combine
 @MainActor
 class SpoilerViewModel: ObservableObject {
     
-    var cardSetData = APIData()
-    var scryfallFetcher = APIData()
+    var scryfallFetcher = ScryfallFetcher()
     
     @Published
-    var cardSetReturnData: APIDataReturn<CardSet>?
+    var cardsSearched: ScryfallAPIResponse<Card>?
     @Published
-    var cardsDataPerSet: [String: APIDataReturn<Card>] = [:]
+    var cardSetReturnData: ScryfallAPIResponse<CardSet>?
+    @Published
+    var cardsDataPerSet: [String: ScryfallAPIResponse<Card>] = [:]
     @Published
     private var expandedSetIds: Set<String> = []
     
     func prefetchCardsIfNeeded(for set: CardSet, sortOrder: SortOrder? = .rarity) {
         if cardsDataPerSet[set.id] == nil {
             Task {
-                if var cardsData = await scryfallFetcher.fetchCards(searchUri: set.search_uri.replaceSortOrderWithRariry()) {
+                if let cardsData = try await scryfallFetcher.searchForCards(query:"e:\(set.code)") {
                     print("URL \(set.search_uri.replaceSortOrderWithRariry())")
                     
                     cardsDataPerSet[set.id] = cardsData
@@ -39,8 +40,8 @@ class SpoilerViewModel: ObservableObject {
     
     func fetchCardSetData(setType: SetType = .expansion) {
         Task {
-            if var cardSetReturnData = await cardSetData.fetchCardSetList() {
-                cardSetReturnData.data = cardSetReturnData.data.filter({ $0.set_type == setType && $0.card_count > 0})
+            if var cardSetReturnData = try await scryfallFetcher.fetchSets() {
+                cardSetReturnData.data = cardSetReturnData.data?.filter({ $0.set_type == setType && $0.card_count > 0})
                 
                 self.cardSetReturnData = cardSetReturnData
             }

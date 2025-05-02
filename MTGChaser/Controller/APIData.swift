@@ -37,9 +37,10 @@ actor APIData {
         }
     }
     
-    func fetchCards(searchUri: String) async -> APIDataReturn<Card>? {
+    func fetchCards(queryString: String, sortOrder: SortOrder = .rarity) async -> APIDataReturn<Card>? {
         do {
-            let scryfallAPIResponse = try await scryfallFetcher.fetchCards(searchUri: searchUri)
+            
+            let scryfallAPIResponse = try await scryfallFetcher.searchForCards(query: queryString)
             
             guard let cardsData = scryfallAPIResponse?.data else {
                 return nil
@@ -51,5 +52,4 @@ actor APIData {
             return nil
         }
     }
-    
 }
