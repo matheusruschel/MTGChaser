@@ -31,6 +31,11 @@ struct SearchView: View {
             runSearch()
             onSubmit = false
         }
+        .onAppear {
+            if onSubmit && !searchQuery.isEmpty {
+                runSearch()
+            }
+        }
     }
     
     func runSearch() {

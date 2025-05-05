@@ -11,6 +11,7 @@ import SVGKit
 struct SVGImageView: UIViewRepresentable {
     let url: URL
     var size: CGSize
+    var color: Color
     
     class Coordinator {
         var imageView: SVGKFastImageView?
@@ -36,6 +37,11 @@ struct SVGImageView: UIViewRepresentable {
         
         view.contentMode = .scaleAspectFit
         view.image.size = size
+        
+        if let rootLayer = view.image.caLayerTree {
+            let uiColor = UIColor(color)
+            applyFillColor(to: rootLayer, color: uiColor)
+        }
     }
     
     private func loadSVGAsync(into imageView: SVGKFastImageView) {
@@ -50,7 +56,20 @@ struct SVGImageView: UIViewRepresentable {
             
             Task { @MainActor in
                 imageView.image = svgImage
+                
+                let tintColor: UIColor = UIColor(color)
+                if let rootLayer = svgImage.caLayerTree {
+                    applyFillColor(to: rootLayer, color: tintColor)
+                }
             }
         }
+    }
+    
+    private func applyFillColor(to layer: CALayer, color: UIColor) {
+        if let shapeLayer = layer as? CAShapeLayer {
+            shapeLayer.fillColor = color.cgColor
+        }
+
+        layer.sublayers?.forEach { applyFillColor(to: $0, color: color) }
     }
 }

@@ -15,33 +15,34 @@ struct SpoilerView: View {
     @State private var searchQuery = ""
     @State private var searchIsActive = false
     @State private var onSubmit: Bool = false
-    
-    @FocusState private var isSearchFieldFocused: Bool
-    
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    TextField("Search", text: $searchQuery)
-                        .focused($isSearchFieldFocused)
-                        .onSubmit {
-                            onSubmit = true
+            VStack {
+                HStack {
+                    Text("MTG sets")
+                        .font(.custom("Cinzel-Bold", size: 24))
+                        .foregroundStyle(.appTertiary)
+                    Spacer()
+                }
+                .frame(height: 30)
+                .padding(.horizontal)
+                
+                ScrollView {
+                    VStack {
+                        QuerySearchBar(onSubmit: $onSubmit, searchQuery: $searchQuery, searchIsActive: $searchIsActive)
+                        ZStack {
+                            
+                            if searchIsActive {
+                                SearchView(onSubmit: $onSubmit, searchQuery: searchQuery)
+                            } else {
+                                SetListView(viewModel: viewModel)
+                            }
                         }
-                        .padding()
-                    ZStack {
-                        SearchView(onSubmit: $onSubmit, searchQuery: searchQuery)
-                            .opacity(!searchQuery.isEmpty || isSearchFieldFocused ? 1 : 0)
-                        
-                        SetListView(viewModel: viewModel)
-                            .opacity(searchQuery.isEmpty && !isSearchFieldFocused ? 1 : 0)
                     }
                 }
             }
-            .navigationTitle("Sets")
-            
-        }
-        .onTapGesture {
-            isSearchFieldFocused = false
+            .background(Color.appSecondary)
         }
         .onAppear {
             viewModel.fetchCardSetData()

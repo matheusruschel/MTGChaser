@@ -7,6 +7,11 @@
 import SwiftUI
 
 struct TabBarView: View {
+    
+    init() {
+        UITabBar.appearance().barTintColor = UIColor(named: "app.secondary")
+    }
+    
     var body: some View {
         TabView {
             SpoilerView()
@@ -19,5 +24,6 @@ struct TabBarView: View {
                     Label("Chase", systemImage: "square.and.pencil")
                 }
         }
+        .accentColor(.appEmerald)
     }
 }
