@@ -16,6 +16,9 @@ struct SpoilerView: View {
     @State private var searchIsActive = false
     @State private var onSubmit: Bool = false
 
+    @StateObject
+    private var settings = Settings()
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -24,6 +27,10 @@ struct SpoilerView: View {
                         .font(.custom("Cinzel-Bold", size: 24))
                         .foregroundStyle(.appTertiary)
                     Spacer()
+                    Picker("Display mode", selection: $settings.displayMode) {
+                        Text("One row").tag(0)
+                        Text("Two rows").tag(1)
+                    }
                 }
                 .frame(height: 30)
                 .padding(.horizontal)
@@ -47,5 +54,6 @@ struct SpoilerView: View {
         .onAppear {
             viewModel.fetchCardSetData()
         }
+        .environmentObject(settings)
     }
 }

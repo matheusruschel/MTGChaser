@@ -19,6 +19,7 @@ struct SetListView: View {
                 Section(content: {
                     if viewModel.isSetExpanded(setId: set.id), let cardsData = viewModel.cardsDataPerSet[set.id] {
                         CardListView(cardsData: cardsData)
+                            .transition(.opacity)
                     }
                     
                 }, header: {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct SetHeaderView: View {
     
     var cardSet: CardSet
@@ -55,10 +56,9 @@ struct SetHeaderView: View {
         }
         .background(Color(.appSecondary))
         .onTapGesture {
-            withAnimation(.linear(duration: 0.3)) {
+            withAnimation {
                 toggleExpanded(cardSet.id)
             }
-            
         }
     }
     

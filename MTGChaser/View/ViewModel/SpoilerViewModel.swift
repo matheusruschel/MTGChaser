@@ -12,9 +12,7 @@ import Combine
 class SpoilerViewModel: ObservableObject {
     
     var scryfallFetcher = ScryfallFetcher()
-    
-    @Published
-    var cardsSearched: ScryfallAPIResponse<Card>?
+
     @Published
     var cardSetReturnData: ScryfallAPIResponse<CardSet>?
     @Published
@@ -22,11 +20,15 @@ class SpoilerViewModel: ObservableObject {
     @Published
     private var expandedSetIds: Set<String> = []
     
+    init() {
+        print("init")
+    }
+    
     func prefetchCardsIfNeeded(for set: CardSet, sortOrder: SortOrder? = .rarity) {
         if cardsDataPerSet[set.id] == nil {
             Task {
                 if let cardsData = try await scryfallFetcher.searchForCards(query:"e:\(set.code)") {
-                    print("URL \(set.search_uri.replaceSortOrderWithRariry())")
+                    print("URL \(set.search_uri)")
                     
                     cardsDataPerSet[set.id] = cardsData
                 }
@@ -49,6 +51,7 @@ class SpoilerViewModel: ObservableObject {
     }
     
     func toggleSet(_ id: String) {
+        
         if expandedSetIds.contains(id) {
             expandedSetIds.remove(id)
         } else {
@@ -56,10 +59,4 @@ class SpoilerViewModel: ObservableObject {
         }
     }
     
-}
-
-extension String {
-    func replaceSortOrderWithRariry() -> String {
-        return self.replacingOccurrences(of: "order=set", with: "order=rarity")
-    }
 }
