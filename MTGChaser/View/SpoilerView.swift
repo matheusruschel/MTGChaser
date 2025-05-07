@@ -30,7 +30,10 @@ struct SpoilerView: View {
                     Picker("Display mode", selection: $settings.displayMode) {
                         Text("One row").tag(0)
                         Text("Two rows").tag(1)
+                        Text("Three rows").tag(2)
                     }
+                    .pickerStyle(.segmented)
+
                 }
                 .frame(height: 30)
                 .padding(.horizontal)

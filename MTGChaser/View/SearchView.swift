@@ -24,7 +24,7 @@ struct SearchView: View {
     var body: some View {
         LazyVStack {
             if let cardsSearched = cardsSearched {
-                CardListView(cardsData: cardsSearched)
+                CardListView(viewModel: CardListViewModel(cards: cardsSearched.data, nextPage: cardsSearched.next_page))
             }
         }
         .onChange(of: onSubmit) {

@@ -18,7 +18,7 @@ struct SetListView: View {
             ForEach(viewModel.cardSetReturnData?.data ?? []) { set in
                 Section(content: {
                     if viewModel.isSetExpanded(setId: set.id), let cardsData = viewModel.cardsDataPerSet[set.id] {
-                        CardListView(cardsData: cardsData)
+                        CardListView(viewModel: CardListViewModel(cards: cardsData.data, nextPage: cardsData.next_page))
                             .transition(.opacity)
                     }
                     

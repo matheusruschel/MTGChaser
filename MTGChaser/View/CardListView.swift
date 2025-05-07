@@ -6,42 +6,46 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct CardListView: View {
     
     @EnvironmentObject var settings: Settings
     
-    let scryfallData = ScryfallFetcher()
-    private var cardsData: ScryfallAPIResponse<Card>
+    @ObservedObject
+    var viewModel: CardListViewModel
     
     @State
     var columns = [GridItem(.flexible())]
     
-    init(cardsData: ScryfallAPIResponse<Card> ) {
-        self.cardsData = cardsData
+    init(viewModel: CardListViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    func selectDisplayMode(displayMode: Int) {
+        switch displayMode {
+            case 0: columns = [GridItem(.flexible())]
+            case 1: columns = [GridItem(.flexible()), GridItem(.flexible())]
+            case 2: columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+            default: columns = [GridItem(.flexible())]
+        }
     }
     
     var body: some View {
         ScrollView {
-            VStack {
-                LazyVGrid(columns: columns) {
-                    ForEach(cardsData.data ?? []) { card in
-                        CardView(card: card)
-                    }
+            LazyVGrid(columns: columns) {
+                ForEach(viewModel.cards, id: \.self) { card in
+                    CardView(card: card)
+                        .onAppear {
+                            viewModel.fetchNextPageIfLastElement(card: card)
+                        }
                 }
             }
             .padding(.horizontal, 5)
             .onChange(of: settings.displayMode) {
-                switch settings.displayMode {
-                case 0:
-                    columns = [GridItem(.flexible())]
-                default:
-                    columns = [GridItem(.flexible()), GridItem(.flexible())]
-                }
+                selectDisplayMode(displayMode: settings.displayMode)
             }
             .onAppear {
-                columns = settings.displayMode == 0 ? [GridItem(.flexible())] : [GridItem(.flexible()), GridItem(.flexible())]
+                selectDisplayMode(displayMode: settings.displayMode)
             }
         }
     }

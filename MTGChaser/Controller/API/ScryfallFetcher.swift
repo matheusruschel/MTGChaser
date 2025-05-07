@@ -61,6 +61,10 @@ actor ScryfallFetcher {
         return try await get(url: url)
     }
     
+    func fetchNextPage(urlString: String) async throws -> ScryfallAPIResponse<Card>? {
+        return try await get(urlString: urlString)
+    }
+    
     private func get<T:Decodable>(urlString: String) async throws -> ScryfallAPIResponse<T>? {
         
         guard let url = URL(string: urlString) else {

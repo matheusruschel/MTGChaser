@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Decodable, Identifiable {
+struct Card: Decodable, Identifiable, Hashable {
     var id: String
     var name: String
     var description: String?
@@ -17,9 +17,10 @@ struct Card: Decodable, Identifiable {
     var layout: CardLayout
     var card_faces: [CardFace]?
     var finishes: [Finishes]
+    
 }
 
-struct CardFace: Decodable {
+struct CardFace: Decodable, Hashable {
     var image_uris: ImageUri?
 }
 
@@ -75,7 +76,7 @@ enum CardLayout: Decodable, Hashable, Equatable {
     
 }
 
-struct ImageUri: Decodable {
+struct ImageUri: Decodable, Hashable {
     var small: URL
     var normal: URL
     var large: URL
@@ -84,7 +85,7 @@ struct ImageUri: Decodable {
     var border_crop: URL
 }
 
-struct Prices: Decodable {
+struct Prices: Decodable, Hashable {
     var usd: String?
 }
 

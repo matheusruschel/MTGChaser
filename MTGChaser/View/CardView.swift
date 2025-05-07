@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct CardView: View {
     
+    @State
     var card: Card
     
     @State
@@ -22,7 +23,6 @@ struct CardView: View {
         
         VStack {
             if card.layout != .reversible_card, let imageUrl = card.image_uris?.normal {
-                
                 WebImage(url: imageUrl) { image in
                     image.resizable()
                 } placeholder: {

@@ -15,7 +15,7 @@ class SpoilerViewModel: ObservableObject {
 
     @Published
     var cardSetReturnData: ScryfallAPIResponse<CardSet>?
-    @Published
+
     var cardsDataPerSet: [String: ScryfallAPIResponse<Card>] = [:]
     @Published
     private var expandedSetIds: Set<String> = []
