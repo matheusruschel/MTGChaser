@@ -17,9 +17,10 @@ struct Card: Decodable, Identifiable, Hashable {
     var layout: CardLayout
     var card_faces: [CardFace]?
     var finishes: [Finishes]
-    
+    var set: String
 }
 
+ 
 struct CardFace: Decodable, Hashable {
     var image_uris: ImageUri?
 }
@@ -38,7 +39,7 @@ enum Finishes: Decodable, Hashable, Equatable {
         case "foil":
             self = .foil
         default :
-            self = .foil
+            self = .nonfoil
         }
     }
 }
@@ -87,6 +88,8 @@ struct ImageUri: Decodable, Hashable {
 
 struct Prices: Decodable, Hashable {
     var usd: String?
+    var usd_foil: String?
+    var usd_etched: String?
 }
 
 enum Rarity: Decodable, Hashable, Equatable {

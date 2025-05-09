@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 class CardListViewModel: ObservableObject {
     
-    var scryfallFetcher = ScryfallFetcher()
+    var scryfallFetcher: ScryfallFetcher
     var nextPage: String?
     var isLoading: Bool = false
     
@@ -31,10 +31,11 @@ class CardListViewModel: ObservableObject {
     
     
     func fetchNextPageIfLastElement(card: Card) {
+        Task {
         if cards.last?.id == card.id && !self.isLoading, let nextPage = nextPage {
             self.isLoading = true
             print("loading more...")
-            Task {
+            
                 let cardsData = try await scryfallFetcher.fetchNextPage(urlString: nextPage)
                 
                 Task { @MainActor in

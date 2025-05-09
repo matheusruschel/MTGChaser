@@ -22,7 +22,7 @@ struct SearchView: View {
     let scryfallFetcher = ScryfallFetcher()
     
     var body: some View {
-        LazyVStack {
+        VStack {
             if let cardsSearched = cardsSearched {
                 CardListView(viewModel: CardListViewModel(cards: cardsSearched.data, nextPage: cardsSearched.next_page))
             }

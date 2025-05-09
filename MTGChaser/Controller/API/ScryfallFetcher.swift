@@ -58,6 +58,8 @@ actor ScryfallFetcher {
             throw Errors.invalidUrl
         }
         
+        print("URL \(url.absoluteString)")
+        
         return try await get(url: url)
     }
     

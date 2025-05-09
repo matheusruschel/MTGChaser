@@ -28,11 +28,7 @@ class SpoilerViewModel: ObservableObject {
         if cardsDataPerSet[set.id] == nil {
             Task {
                 if let cardsData = try await scryfallFetcher.searchForCards(query:"e:\(set.code)") {
-                    print("URL \(set.search_uri)")
-                    
-                    Task { @MainActor in
-                        cardsDataPerSet[set.id] = cardsData
-                    }
+                    cardsDataPerSet[set.id] = cardsData
                 }
             }
         }
