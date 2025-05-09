@@ -11,15 +11,11 @@ struct CardListView: View {
     
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject
+    @StateObject
     var viewModel: CardListViewModel
     
     @State
     var columns = [GridItem(.flexible())]
-    
-    init(viewModel: CardListViewModel) {
-        self.viewModel = viewModel
-    }
     
     func selectDisplayMode(displayMode: Int) {
         switch displayMode {

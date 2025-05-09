@@ -29,15 +29,20 @@ class CardListViewModel: ObservableObject {
 
     }
     
+    
     func fetchNextPageIfLastElement(card: Card) {
         if cards.last?.id == card.id && !self.isLoading, let nextPage = nextPage {
             self.isLoading = true
-            
+            print("loading more...")
             Task {
                 let cardsData = try await scryfallFetcher.fetchNextPage(urlString: nextPage)
-                self.nextPage = cardsData?.next_page
-                self.cards.append(contentsOf: cardsData?.data ?? [])
-                self.isLoading = false
+                
+                Task { @MainActor in
+                    
+                    self.nextPage = cardsData?.next_page
+                    self.cards.append(contentsOf: cardsData?.data ?? [])
+                    self.isLoading = false
+                }
             }
         }
     }

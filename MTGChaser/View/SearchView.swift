@@ -40,6 +40,12 @@ struct SearchView: View {
     
     func runSearch() {
         print("running search")
-        Task { cardsSearched = try await scryfallFetcher.searchForCards(query: searchQuery) }
+        Task {
+            let cardsSearchedObject = try await scryfallFetcher.searchForCards(query: searchQuery)
+            
+            Task { @MainActor in
+                cardsSearched = cardsSearchedObject
+            }
+        }
     }
 }

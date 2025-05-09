@@ -23,6 +23,7 @@ struct CardView: View {
         
         VStack {
             if card.layout != .reversible_card, let imageUrl = card.image_uris?.normal {
+                
                 WebImage(url: imageUrl) { image in
                     image.resizable()
                 } placeholder: {
@@ -64,7 +65,10 @@ struct CardView: View {
                                     
                                     Task {
                                         try await Task.sleep(until: .now + .seconds(0.1))
-                                        showBack.toggle()
+                                        
+                                        Task { @MainActor in
+                                            showBack.toggle()
+                                        }
                                     }
 
                                 }) {

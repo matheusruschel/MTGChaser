@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 struct SetListView: View {
     
-    @ObservedObject
+    @StateObject
     var viewModel: SpoilerViewModel
     
     var body: some View {

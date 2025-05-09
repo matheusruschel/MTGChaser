@@ -30,7 +30,9 @@ class SpoilerViewModel: ObservableObject {
                 if let cardsData = try await scryfallFetcher.searchForCards(query:"e:\(set.code)") {
                     print("URL \(set.search_uri)")
                     
-                    cardsDataPerSet[set.id] = cardsData
+                    Task { @MainActor in
+                        cardsDataPerSet[set.id] = cardsData
+                    }
                 }
             }
         }
@@ -45,7 +47,9 @@ class SpoilerViewModel: ObservableObject {
             if var cardSetReturnData = try await scryfallFetcher.fetchSets() {
                 cardSetReturnData.data = cardSetReturnData.data?.filter({ $0.set_type == setType && $0.card_count > 0})
                 
-                self.cardSetReturnData = cardSetReturnData
+                Task { @MainActor in
+                    self.cardSetReturnData = cardSetReturnData
+                }
             }
         }
     }

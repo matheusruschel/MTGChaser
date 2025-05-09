@@ -9,7 +9,7 @@ import SwiftUI
 @MainActor
 struct SpoilerView: View {
     
-    @ObservedObject
+    @StateObject
     var viewModel: SpoilerViewModel = SpoilerViewModel()
     
     @State private var searchQuery = ""
