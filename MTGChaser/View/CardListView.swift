@@ -27,7 +27,6 @@ struct CardListView: View {
     }
     
     var body: some View {
-        ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(viewModel.cards, id: \.self) { card in
                     CardView(card: card)
@@ -43,6 +42,5 @@ struct CardListView: View {
             .onAppear {
                 selectDisplayMode(displayMode: settings.displayMode)
             }
-        }
     }
 }

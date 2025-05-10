@@ -15,7 +15,7 @@ struct SetListView: View {
     
     var body: some View {
         LazyVStack(pinnedViews: [.sectionHeaders]) {
-            ForEach(viewModel.cardSetReturnData?.data ?? []) { set in
+            ForEach(viewModel.cardSetReturnData?.data ?? [], id: \.self) { set in
                 Section(content: {
                     if viewModel.isSetExpanded(setId: set.id), let cardsData = viewModel.cardsDataPerSet[set.id] {
                         CardListView(viewModel: CardListViewModel(cards: cardsData.data, nextPage: cardsData.next_page))

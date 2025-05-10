@@ -57,9 +57,9 @@ struct SetHeaderView: View {
         }
         .background(Color(.appSecondary))
         .onTapGesture {
-            //withAnimation {
+            withAnimation {
                 toggleExpanded(cardSet.id)
-           // }
+            }
         }
     }
     
